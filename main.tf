@@ -108,16 +108,16 @@ resource "hcloud_server" "node" {
     datacenter = var.datacenter
     name = "node-${count.index + 1}"
     image = var.image
-    server_type = var.node_type 
+    server_type = var.node_type
     ssh_keys = [hcloud_ssh_key.k8-ssh.id]
 
     network {
       network_id = hcloud_network.private.id
     }
 
-    depends_on = [
-    hcloud_network_subnet.subnet
-  ]
+      depends_on = [
+        hcloud_network_subnet.subnet, hcloud_server.master.0
+      ]
 
     connection {
       host        = self.ipv4_address
@@ -157,6 +157,6 @@ resource "hcloud_server" "node" {
     }
 
     provisioner "remote-exec" {
-       inline = ["DOCKER_VERSION=${var.docker_version} KUBERNETES_VERSION=${var.kubernetes_version} bash /root/master.sh"]
+       inline = ["DOCKER_VERSION=${var.docker_version} KUBERNETES_VERSION=${var.kubernetes_version} bash /root/node.sh"]
     }
 }
