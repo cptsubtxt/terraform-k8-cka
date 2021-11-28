@@ -41,10 +41,14 @@ EOF
 # https://github.com/hetznercloud/hcloud-cloud-controller-manager
 
 # Install networking e.g. flannel
-kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+# kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
 
 # Patch flannel 
-kubectl -n kube-system patch ds kube-flannel-ds --type json -p '[{"op":"add","path":"/spec/template/spec/tolerations/-","value":{"key":"node.cloudprovider.kubernetes.io/uninitialized","value":"true","effect":"NoSchedule"}}]'
+# kubectl -n kube-system patch ds kube-flannel-ds --type json -p '[{"op":"add","path":"/spec/template/spec/tolerations/-","value":{"key":"node.cloudprovider.kubernetes.io/uninitialized","value":"true","effect":"NoSchedule"}}]'
+
+# Install networking calico as this will be used for use of Network Policies
+
+kubectl apply -f /root/calico.yaml
 
 # Install Hetzner Cloud Controller Manager
 kubectl apply -f https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/ccm-networks.yaml

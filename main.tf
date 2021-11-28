@@ -69,6 +69,11 @@ resource "hcloud_server" "master" {
       source      = "files/master.sh"
       destination = "/root/master.sh"
     }
+
+    provisioner "file" {
+      source      = "files/calico.yaml"
+      destination = "/root/calico.yaml"
+    }
     
     provisioner "remote-exec" {
        inline = ["DOCKER_VERSION=${var.docker_version} KUBERNETES_VERSION=${var.kubernetes_version} bash /root/prepareHost.sh"]

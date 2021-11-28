@@ -33,7 +33,7 @@ ssh_public_key = "ssh-keys/ssh-key-rsa-learnk8.pub"
 
 ## Create some folders used
 
-In the project folder create folder ssh-keys and local. This folders won't be synced with git as they are excluded to make s
+In the project folder create folder ssh-keys and local. This folders won't be synced with git as they are excluded to make sure API Keys etc. are not accidentally open to public.
 
 ## Create SSH Keys
 
